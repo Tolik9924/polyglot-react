@@ -1,0 +1,81 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form {
+  width: 30%;
+  margin-top: 25px;
+}
+
+.formItem {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.nameOfItem {
+  width: 30%;
+  font-size: 25px;
+  margin: 0px 0px;
+  display: flex;
+  align-self: center;
+}
+
+.testItem {
+  width: 100%;
+}
+
+.variantsofAnswer {
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+}
+
+.test {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.test:nth-child(n+1) {
+  margin: 10px 0px;
+}
+
+.nameOfTest {
+  width: 15%;
+}
+
+.inputContainer {
+  width: 70%;
+}
+
+.checkboxContainer {
+  width: 30%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttonContainer {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.saveTestContainer {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.errorMessage {
+  color: rgb(211, 47, 47);
+  display: flex;
+  justify-content: center;
+}
