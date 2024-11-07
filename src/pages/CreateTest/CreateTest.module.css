@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   margin-top: 100px;
+  margin-bottom: 100px;
   flex-direction: column;
   align-items: center;
 }
@@ -19,7 +20,7 @@
 }
 
 .nameOfItem {
-  width: 30%;
+  width: 25%;
   font-size: 25px;
   margin: 0px 0px;
   display: flex;
@@ -48,11 +49,11 @@
 }
 
 .nameOfTest {
-  width: 15%;
+  width: 20%;
 }
 
 .inputContainer {
-  width: 70%;
+  width: 100%;
 }
 
 .checkboxContainer {
@@ -78,4 +79,23 @@
   color: rgb(211, 47, 47);
   display: flex;
   justify-content: center;
+}
+
+
+.questionContainer {
+  display: flex;
+}
+
+.inputAnswerContainer {
+  width: 40%;
+  margin-right: 30px;
+}
+
+.addAnswer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.saveTest {
+  margin-top: 30px;
 }
