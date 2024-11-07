@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import { Button, Checkbox, Input } from 'antd';
-
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
 
 import styles from './CreateTest.module.css';
@@ -41,6 +40,24 @@ const CreateTest = () => {
       } as Sentence
     ],
   });
+
+  const { control, handleSubmit, formState: { errors } } = useForm<Test>({
+    defaultValues: {
+      topic: "",
+      sentences: [
+        {
+          id: 1,
+          english: "",
+          ukrainian: "",
+          answers: []
+        } as Sentence
+      ],
+    }
+  });
+
+  const onSubmit: SubmitHandler<Test> = (data) => {
+    console.log("Data: ", data)
+  }
 
   const [topic, setTopic] = useState<string>("");
   const [sentences, setSentences] = useState([
@@ -177,15 +194,12 @@ const CreateTest = () => {
     });
   };
 
-  console.log("Topic: ", topic);
-  console.log("Sentences: ", sentences);
-  console.log("Questions: ", questions);
-  console.log("Test: ", test);
+  console.log("TEST: ", test);
 
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit(saveTest)}>
           <div className={styles.formItem}>
             <p className={styles.nameOfItem}>Topic:</p>
             <div className={styles.inputContainer}>
@@ -268,12 +282,12 @@ const CreateTest = () => {
               size="large"
               type='primary'
               block
-              onClick={saveTest}
+              htmlType='submit'
             >
               Save Test
             </Button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
