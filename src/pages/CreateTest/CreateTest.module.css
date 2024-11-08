@@ -20,21 +20,11 @@
 }
 
 .nameOfItem {
-  width: 25%;
+  width: 60%;
   font-size: 25px;
   margin: 0px 0px;
   display: flex;
   align-self: center;
-}
-
-.testItem {
-  width: 100%;
-}
-
-.variantsofAnswer {
-  display: flex;
-  justify-content: center;
-  font-size: 25px;
 }
 
 .test {
@@ -62,33 +52,11 @@
   justify-content: flex-end;
 }
 
-.buttonContainer {
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
-}
-
 .saveTestContainer {
   margin-top: 25px;
   display: flex;
   justify-content: center;
   width: 100%;
-}
-
-.errorMessage {
-  color: rgb(211, 47, 47);
-  display: flex;
-  justify-content: center;
-}
-
-
-.questionContainer {
-  display: flex;
-}
-
-.inputAnswerContainer {
-  width: 40%;
-  margin-right: 30px;
 }
 
 .addAnswer {
@@ -98,4 +66,12 @@
 
 .saveTest {
   margin-top: 30px;
+}
+
+.addQuestion {
+  margin-top: 20px;
+}
+
+.questionContainer {
+  margin-top: 40px;
 }

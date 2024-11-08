@@ -5,192 +5,168 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form"
 
 import styles from './CreateTest.module.css';
 
-type Answer = {
+interface SubQuestion {
   id: number;
-  name: string;
+  name: "";
   isCorrect: boolean;
 }
 
-type Question = {
+interface Question {
   id: number;
-  answers: Array<Answer>
+  name: string;
+  subQuestions: Array<SubQuestion>
 }
 
-type Sentence = {
-  id: number;
-  english: string;
-  ukrainian: string;
-  questions?: Array<Question>;
-}
-
-type Test = {
-  topic: string,
-  sentences: Array<Sentence>
+interface Test {
+  sentence: "";
+  correctAnswer: "";
+  questions: Array<Question>
 }
 
 const CreateTest = () => {
-  const [test, setTest] = useState<Test>({
-    topic: "",
-    sentences: [
+  const [test, setTest] = useState({
+    sentence: "",
+    correctAnswer: "",
+    questions: [
       {
         id: 1,
-        english: "",
-        ukrainian: "",
-        answers: []
-      } as Sentence
-    ],
+        name: "1 Question",
+        subQuestions: [
+          { id: 1, name: "", isCorrect: false }
+        ]
+      }
+    ]
   });
 
   const { control, handleSubmit, formState: { errors } } = useForm<Test>({
     defaultValues: {
-      topic: "",
-      sentences: [
-        {
-          id: 1,
-          english: "",
-          ukrainian: "",
-          answers: []
-        } as Sentence
-      ],
+      sentence: "",
+    correctAnswer: "",
+    questions: [
+      {
+        id: 1,
+        name: "1 Question",
+        subQuestions: [
+          { id: 1, name: "", isCorrect: false }
+        ]
+      }
+    ]
     }
   });
 
-  const onSubmit: SubmitHandler<Test> = (data) => {
-    console.log("Data: ", data)
-  }
-
-  const [topic, setTopic] = useState<string>("");
-  const [sentences, setSentences] = useState([
+  const [sentence, setSentence] = useState<string>("");
+  const [correctAnswer, setCorrectAnswer] = useState<string>("");
+  const [questions, setQuestions] = useState([
     {
       id: 1,
-      english: "",
-      ukrainian: ""
+      name: "1 Question",
+      subQuestions: [
+        { id: 1, name: "", isCorrect: false }
+      ]
     }
   ]);
 
-  const [questions, setQuestions] = useState([{
-    id: 1,
-    answers: [{
-      id: 1,
-      name: "",
-      isCorrect: false
-    }]
-  }]);
-
-  const changeTopic = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTopic(event.target.value);
+  const changeSentence = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSentence(event.target.value);
   };
 
-  const changeEnglish = (id: number, event: React.ChangeEvent<HTMLInputElement>) => {
-    setSentences([...sentences.map((item) => {
-      if (id === item.id) {
-        return { ...item, english: event.target.value };
-      } else {
-        return { ...item };
-      }
-    })]);
+  const changeCorrectAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCorrectAnswer(event.target.value);
   };
 
-  const changeUrkainian = (id: number, event: React.ChangeEvent<HTMLInputElement>) => {
-    setSentences([...sentences.map((item) => {
-      if (id === item.id) {
-        return { ...item, ukrainian: event.target.value };
-      } else {
-        return { ...item };
-      }
-    })]);
-  };
-
-  const changeAnswer = (idQuestion, idAnswer, event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeSubQuestionName = (
+    idQuestion: number,
+    idSubQuestion: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setQuestions([...questions.map((question) => {
       if (question.id === idQuestion) {
         return {
           ...question,
-          answers: [
-            ...question.answers.map((answer) => {
-              if (answer.id === idAnswer) {
-                return {
-                  ...answer,
-                  name: event.target.value
-                } as Answer;
-              } else {
-                return { ...answer } as Answer;
-              }
-            })
-          ]
-        } as Question
-      } else {
-        return { ...question } as Question
-      }
-    })]);
-  };
-
-  const changeIsTrueAnswer = (idQuestion, idAnswer) => {
-    setQuestions([...questions.map((question) => {
-      if (question.id === idQuestion) {
-        return {
-          ...question,
-          answers: [
-            ...question.answers.map((answer) => {
-              if (answer.id === idAnswer) {
-                return {
-                  ...answer,
-                  isCorrect: !answer.isCorrect
-                } as Answer;
-              } else {
-                return { ...answer } as Answer;
-              }
-            })
-          ]
-        } as Question
-      } else {
-        return { ...question } as Question
-      }
-    })]);
-  };
-
-  const addSentence = () => {
-    setSentences([...sentences, {
-      id: sentences.length + 1,
-      english: "",
-      ukrainian: ""
-    }]);
-    setQuestions([...questions, {
-      id: questions.length + 1,
-      answers: [{
-        id: 1,
-        name: "",
-        isCorrect: false
-      }]
-    }]);
-  };
-
-  const addAnswer = (idQuestion) => {
-    setQuestions([...questions.map((question) => {
-      if (question.id === idQuestion) {
-        return {
-          ...question,
-          answers: [...question.answers, {
-            id: question.answers.length + 1,
-            name: "",
-            isCorrect: false
-          }]
+          subQuestions: question.subQuestions.map((subQuestion) => {
+            if (subQuestion.id === idSubQuestion) {
+              return {
+                ...subQuestion,
+                name: event.target.value
+              };
+            } else {
+              return { ...subQuestion };
+            }
+          })
         }
       } else {
-        return { ...question };
+        return { ...question }
       }
     })]);
   };
 
-  const saveTest = () => {    
-    setTest( {
-      ...test,
-      topic: topic,
-      sentences: [...sentences.map((sentence) => {
+  const handleChangeIsCorrect = (idQuestion: number, idSubQuestion: number,) => {
+    setQuestions([...questions.map((question) => {
+      if (question.id === idQuestion) {
         return {
-          ...sentence,
-          questions: questions.find((question) => question.id === sentence.id)
-        } as Sentence})]
+          ...question,
+          subQuestions: question.subQuestions.map((subQuestion) => {
+            if (subQuestion.id === idSubQuestion) {
+              return {
+                ...subQuestion,
+                isCorrect: !subQuestion.isCorrect
+              };
+            } else {
+              return { ...subQuestion };
+            }
+          })
+        }
+      } else {
+        return { ...question }
+      }
+    })]);
+  };
+
+  const addSubQuestion = (idQuestion: number) => {
+    setQuestions([
+      ...questions.map((question) => {
+        if (question.id === idQuestion) {
+          return {
+            ...question,
+            subQuestions: [
+              ...question.subQuestions,
+              {
+                id: question.subQuestions.length + 1,
+                name: "",
+                isCorrect: false
+              }
+            ]
+          };
+        } else {
+          return { ...question };
+        }
+      }),
+    ]);
+  };
+
+  const addQuestion = () => {
+    setQuestions([
+      ...questions,
+      {
+        id: questions.length + 1,
+        name: `${questions.length + 1} Question`,
+        subQuestions: [
+          {
+            id: 1,
+            name: "",
+            isCorrect: false
+          }
+        ]
+      }
+    ]);
+  };
+
+  const saveTest = () => {
+    setTest({
+      ...test,
+      sentence: sentence,
+      correctAnswer: correctAnswer,
+      questions: [...questions]
     });
   };
 
@@ -201,84 +177,62 @@ const CreateTest = () => {
       <div className={styles.container}>
         <form className={styles.form} onSubmit={handleSubmit(saveTest)}>
           <div className={styles.formItem}>
-            <p className={styles.nameOfItem}>Topic:</p>
+            <p className={styles.nameOfItem}>Sentence:</p>
             <div className={styles.inputContainer}>
-              <Input value={topic} onChange={changeTopic} size="large" />
+              <Input value={sentence} onChange={changeSentence} size="large" />
             </div>
           </div>
-          {sentences.map((item) => (
-            <div key={item.id}>
-              <div className={styles.formItem}>
-                <p className={styles.nameOfItem}>Ukrainian:</p>
-                <div className={styles.inputContainer}>
-                  <Input
-                    value={item.ukrainian}
-                    onChange={(event) => changeUrkainian(item.id, event)}
-                    size="large"
-                  />
-                </div>
-              </div>
-              <div key={item.id} className={styles.formItem}>
-                <p className={styles.nameOfItem}>English:</p>
-                <div className={styles.inputContainer}>
-                  <Input
-                    value={item.english}
-                    onChange={(event) => changeEnglish(item.id, event)}
-                    size="large"
-                  />
-                </div>
-              </div>
-              {questions.map((question) => {
-                if (question.id === item.id) {
-                  return (
-                    question.answers.map((item) => (
-                      <div key={item.id}>
-                        <div className={styles.test}>
-                          <p className={styles.nameOfTest}>Answer: </p>
-                          <div className={styles.inputAnswerContainer}>
-                            <Input
-                              value={item.name}
-                              onChange={(event) => changeAnswer(question.id, item.id, event)}
-                              size="middle"
-                            />
-                          </div>
-                          <Checkbox
-                            checked={item.isCorrect}
-                            onChange={() => changeIsTrueAnswer(question.id, item.id)}
-                          />
-                        </div>
-                        {
-                          item.id === question.answers.length
-                          && <div className={styles.addAnswer}>
-                            <Button
-                              size='small'
-                              type='primary'
-                              onClick={() => addAnswer(question.id)}
-                            >
-                              Add Answer
-                            </Button>
-                          </div>
-                        }
-                      </div>
-                    ))
-                  );
-                } else {
-                  return <p key={question.id}></p>;
-                }
-              })}
+          <div className={styles.formItem}>
+            <p className={styles.nameOfItem}>Correct Answer:</p>
+            <div className={styles.inputContainer}>
+              <Input value={correctAnswer} onChange={changeCorrectAnswer} size="large" />
             </div>
-          ))}
-          <div className={styles.addContainer}>
-            <Button
-              onClick={addSentence}
-              size='middle'
-              type='primary'
-            >
-              Add Sentence
-            </Button>
+          </div>
+          <div>
+            {questions.map((question) => (
+              <div key={question.id} className={styles.questionContainer}>
+                <p className={styles.nameOfItem}>{question.name}</p>
+                {question.subQuestions.map((subQuestion) => (
+                  <div key={subQuestion.id}>
+                    <div className={styles.test}>
+                      <p className={styles.nameOfTest}>Name:</p>
+                      <div className={styles.inputContainer}>
+                        <Input
+                          value={subQuestion.name}
+                          onChange={(event) => handleChangeSubQuestionName(question.id, subQuestion.id, event)}
+                        />
+                      </div>
+                      <div className={styles.checkboxContainer}>
+                        <Checkbox
+                          checked={subQuestion.isCorrect}
+                          onChange={() => handleChangeIsCorrect(question.id, subQuestion.id)}
+                        />
+                      </div>
+                    </div>
+                    {subQuestion.id === question.subQuestions.length
+                      && <Button
+                        type="primary"
+                        size="middle"
+                        onClick={() => addSubQuestion(question.id)}
+                      >
+                        Add SubQuestion
+                      </Button>}
+                  </div>
+                ))}
+              </div>
+            ))}
+            <div className={styles.addQuestion}>
+              <Button
+                type="primary"
+                size="middle"
+                onClick={addQuestion}
+              >
+                Add Question
+              </Button>
+            </div>
           </div>
           <div className={styles.saveTest}>
-            <Button 
+            <Button
               size="large"
               type='primary'
               block
