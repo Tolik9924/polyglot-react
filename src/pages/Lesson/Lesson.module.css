@@ -5,6 +5,18 @@
   align-items: center;
 }
 
+.prevQuestion {
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+
+.nextQuestion {
+  position: absolute;
+  top: 50%;
+  right: 0;
+}
+
 .sentenceContainer {
   display: flex;
   flex-direction: column;
@@ -41,5 +53,5 @@
 }
 
 .pagination :nth-child(2n) {
-  margin: 0px 10px;
+  margin: 100px 10px;
 }

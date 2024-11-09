@@ -47,6 +47,10 @@
 }
 
 .checkboxContainer {
+  margin-left: 30px;
+}
+
+.deleteContainer {
   width: 30%;
   display: flex;
   justify-content: flex-end;
@@ -74,4 +78,9 @@
 
 .questionContainer {
   margin-top: 40px;
+}
+
+.nameOfItemContainer {
+  display: flex;
+  justify-content: space-between;
 }

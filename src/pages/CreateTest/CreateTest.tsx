@@ -41,16 +41,16 @@ const CreateTest = () => {
   const { control, handleSubmit, formState: { errors } } = useForm<Test>({
     defaultValues: {
       sentence: "",
-    correctAnswer: "",
-    questions: [
-      {
-        id: 1,
-        name: "1 Question",
-        subQuestions: [
-          { id: 1, name: "", isCorrect: false }
-        ]
-      }
-    ]
+      correctAnswer: "",
+      questions: [
+        {
+          id: 1,
+          name: "1 Question",
+          subQuestions: [
+            { id: 1, name: "", isCorrect: false }
+          ]
+        }
+      ]
     }
   });
 
@@ -144,6 +144,31 @@ const CreateTest = () => {
     ]);
   };
 
+  const deleteSubquestion = (idQuestion: number, idAnswer: number) => {
+    let answersOfQuestion: SubQuestion[] = [];
+
+    for (let i = 0; i < questions.length; i++) {
+      if (idQuestion === questions[i].id) {
+        answersOfQuestion = [...questions[i].subQuestions] as Array<SubQuestion>;
+      }
+    }
+
+    const filteredAnswers = answersOfQuestion.filter((answer) => answer.id !== idAnswer);
+
+    setQuestions([
+      ...questions.map((question) => {
+        if (question.id === idQuestion) {
+          return {
+            ...question,
+            subQuestions: [...filteredAnswers]
+          };
+        } else {
+          return { ...question };
+        }
+      })
+    ]);
+  };
+
   const addQuestion = () => {
     setQuestions([
       ...questions,
@@ -159,6 +184,11 @@ const CreateTest = () => {
         ]
       }
     ]);
+  };
+
+  const deleteQuestion = (id: number) => {
+    const filteredQuestions = questions.filter((question) => question.id !== id);
+    setQuestions([...filteredQuestions]);
   };
 
   const saveTest = () => {
@@ -191,7 +221,17 @@ const CreateTest = () => {
           <div>
             {questions.map((question) => (
               <div key={question.id} className={styles.questionContainer}>
-                <p className={styles.nameOfItem}>{question.name}</p>
+                <div className={styles.nameOfItemContainer}>
+                  <p className={styles.nameOfItem}>{question.name}</p>
+                  {questions.length > 1
+                    && <Button
+                      type="primary"
+                      size="middle"
+                      onClick={() => deleteQuestion(question.id)}
+                    >
+                      X
+                    </Button>}
+                </div>
                 {question.subQuestions.map((subQuestion) => (
                   <div key={subQuestion.id}>
                     <div className={styles.test}>
@@ -208,6 +248,16 @@ const CreateTest = () => {
                           onChange={() => handleChangeIsCorrect(question.id, subQuestion.id)}
                         />
                       </div>
+                      {question.subQuestions.length > 1
+                        && <div className={styles.deleteContainer}>
+                          <Button
+                            type="primary"
+                            size="small"
+                            onClick={() => deleteSubquestion(question.id, subQuestion.id)}
+                          >
+                            X
+                          </Button>
+                        </div>}
                     </div>
                     {subQuestion.id === question.subQuestions.length
                       && <Button

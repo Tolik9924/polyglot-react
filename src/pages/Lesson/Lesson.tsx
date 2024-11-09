@@ -3,6 +3,7 @@ import React from 'react';
 import { Button } from 'core_ui_design_system';
 import { useEffect, useState } from 'react';
 import styles from './Lesson.module.css';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 
 interface SubQuestion {
@@ -205,6 +206,33 @@ const Lesson = () => {
     return newArray;
   };
 
+  const swapQuestion = (id: number) => {
+    let questionId: number = 0;
+    if (id <= test.length) {
+      questionId = id;
+      setTestId(id);
+    }
+
+    if (id > test.length) {
+      questionId = 1;
+      setTestId(questionId);
+    }
+
+    if (id < 1) {
+      questionId = test.length;
+      setTestId(questionId);
+    }
+
+    const filteredSentence = test.filter((item) => item.id === questionId);
+    setSentence({ ...filteredSentence[0] });
+    setTestWord(filteredSentence[0].questions[0]);
+    if (filteredSentence[0].isCompleted) {
+      setAnswer(filteredSentence[0].correctAnswer);
+    } else {
+      setAnswer("");
+    }
+  };
+
   useEffect(() => {
     const shuffledArray = shuffle(variants);
     setRandomVariants([...shuffledArray]);
@@ -212,6 +240,24 @@ const Lesson = () => {
 
   return (
     <div className={styles.lessonPage}>
+      <div className={styles.prevQuestion}>
+        <Button
+          variant="primary"
+          size="l"
+          onclick={() => swapQuestion(testId - 1)}
+        >
+          <LeftOutlined />
+        </Button>
+      </div>
+      <div className={styles.nextQuestion}>
+        <Button
+          variant="primary"
+          size="l"
+          onclick={() => swapQuestion(testId + 1)}
+        >
+          <RightOutlined />
+        </Button>
+      </div>
       <h1>Lesson Topic</h1>
       <div className={styles.sentenceContainer}>
         <p className={styles.sentence}>{sentence.sentence}</p>
