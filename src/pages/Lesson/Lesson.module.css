@@ -1,5 +1,5 @@
 .lessonPage {
-  padding: 30px 100px;
+  padding: 10px 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,38 +17,59 @@
   right: 0;
 }
 
+.topic {
+  margin-top: 10px;
+}
+
 .sentenceContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 50vh;
+  margin-top: 0px;
 }
 
 .sentence {
   font-size: 50px;
-  margin: 0px 0px;
+  margin: 0px 0px 0px 0px;
 }
 
 .answerContainer {
-  height: 50px;
-  margin: 50px 0px;
+  height: 30px;
+  margin: 0px 0px;
+}
+
+.correctAnswerContainer {
+  
 }
 
 .answer {
   font-size: 50px;
+  color: rgb(46, 125, 50);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0px 0px;
+}
+
+.uncorrectAnswer {
+  font-size: 50px;
+  color: rgb(211, 47, 47);
+  margin: 100px 0px;
 }
 
 .correct {
   font-size: 50px;
   color: rgb(46, 125, 50);
+  margin-top: 100px;
 }
 
 .words {
   display: flex;
   flex-direction: row;
   height: 50px;
-  margin-top: 100px;
+  margin-top: 200px;
   gap: 0px 50px;
 }
 

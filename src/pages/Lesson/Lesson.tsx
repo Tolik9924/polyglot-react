@@ -57,19 +57,19 @@ const startTest = [
         name: "second word",
         subQuestions: [
           { id: 1, name: "I", isCorrect: false },
-          { id: 2, name: "He", isCorrect: false },
-          { id: 3, name: "You", isCorrect: true },
-          { id: 4, name: "We", isCorrect: false },
+          { id: 2, name: "he", isCorrect: false },
+          { id: 3, name: "you", isCorrect: true },
+          { id: 4, name: "we", isCorrect: false },
         ]
       },
       {
         id: 3,
         name: "third word",
         subQuestions: [
-          { id: 1, name: "Hide?", isCorrect: false },
-          { id: 2, name: "Screen?", isCorrect: false },
-          { id: 3, name: "Try?", isCorrect: false },
-          { id: 4, name: "Show?", isCorrect: true },
+          { id: 1, name: "hide?", isCorrect: false },
+          { id: 2, name: "screen?", isCorrect: false },
+          { id: 3, name: "try?", isCorrect: false },
+          { id: 4, name: "show?", isCorrect: true },
         ]
       },
     ],
@@ -154,17 +154,24 @@ const Lesson = () => {
   const [sentence, setSentence] = useState<Sentence>({ ...startTest[0] });
   const [testWord, setTestWord] = useState({ ...sentence.questions[testWordId] });
   const [randomVariants, setRandomVariants] = useState<string[]>([]);
+  const [correctAnswers, setCorrectAnswers] = useState<boolean[]>([]);
 
   const onClick = async (word: string, isCorrect: boolean) => {
-    if (isCorrect) {
-      let count = 0;
-      setAnswer(answer + word + " ");
-      if (testWord.id < sentence.questions.length) {
-        count = testWordId + 1;
-        setTestWordId(testWordId + 1);
-        setTestWord(sentence.questions[count]);
-      }
-      if (sentence.questions.length === testWord.id) {
+    console.log("WORD IN ONCLICK: ", word);
+    let count = 0;
+    let userAnswer = answer + word + " ";
+    let correctAnswersArr = [ ...correctAnswers, isCorrect ];
+    setCorrectAnswers(correctAnswersArr);
+    setAnswer(userAnswer);
+    if (testWord.id < sentence.questions.length) {
+      count = testWordId + 1;
+      setTestWordId(testWordId + 1);
+      setTestWord(sentence.questions[count]);
+    }
+    if (sentence.questions.length === testWord.id) {
+      if (correctAnswersArr.includes(false)) {
+        setIsNotCorrect(true);
+      } else {
         setTestWordId(0);
         const newSentence = { ...sentence, isCompleted: true };
         setSentence({ ...sentence, isCompleted: true });
@@ -178,15 +185,13 @@ const Lesson = () => {
         setTest([...updatedTest]);
       }
     }
-
-    if (!isCorrect) {
-      setIsNotCorrect(true);
-    }
-  }
+  };
 
   const showSentence = (id: number, isCompleted: boolean) => {
+    setIsNotCorrect(false);
     setTestWordId(0);
     setTestId(id);
+    setCorrectAnswers([]);
     const filteredSentence = test.filter((item) => item.id === id);
     setSentence({ ...filteredSentence[0] });
     setTestWord(filteredSentence[0].questions[0]);
@@ -207,6 +212,9 @@ const Lesson = () => {
   };
 
   const swapQuestion = (id: number) => {
+    setIsNotCorrect(false);
+    setCorrectAnswers([]);
+    setTestWordId(0);
     let questionId: number = 0;
     if (id <= test.length) {
       questionId = id;
@@ -258,18 +266,25 @@ const Lesson = () => {
           <RightOutlined />
         </Button>
       </div>
-      <h1>Lesson Topic</h1>
+      <h1 className={styles.topic}>Lesson Topic</h1>
       <div className={styles.sentenceContainer}>
         <p className={styles.sentence}>{sentence.sentence}</p>
         <div className={styles.answerContainer}>
           {isNotCorrect
-            ? <p className={styles.answer}>Is Not Correct</p>
-            : <p className={styles.answer}>{answer}</p>
+            ? <div className={styles.uncorrectAnswerContainer}>
+                <p className={styles.uncorrectAnswer}>{answer}</p>
+                <p className={styles.answer}>{sentence.correctAnswer}</p>
+              </div>
+            : <div className={styles.correctAnswerContainer}>
+                <p className={styles.answer}>{answer}</p>
+                {sentence.isCompleted 
+                  && <p className={styles.correct}>Correct!</p>}
+              </div>
           }
         </div>
         <div className={styles.words}>
           {!sentence.isCompleted
-            ? testWord.subQuestions.map((subQuestion, index) => {
+            && testWord.subQuestions.map((subQuestion, index) => {
 
               const variant = randomVariants[index];
 
@@ -285,8 +300,7 @@ const Lesson = () => {
                   </Button>
                 </div>
               );
-            })
-            : <p className={styles.correct}>Correct!</p>}
+            })}
         </div>
       </div>
       <div className={styles.pagination}>
