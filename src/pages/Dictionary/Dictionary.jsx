@@ -1,47 +1,51 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Dictionary = () => {
-    const app_id = '1e07b935'
-    const app_key = 'a836455e0496b22a23de36c28538c78c';
-    const wordId = "ace";
-    const fields = "pronunciations";
-    const strictMatch = "false";
+    const [word, setWord] = useState('hello');
+    const [definition, setDefinition] = useState(null);
 
-    const word = 'example';
-    const url = `https://od-api-sandbox.oxforddictionaries.com/api/v2/entries/en-gb/ace`;;
-
-    /* axios.get({
-        method: "GET",
-        url: 'https://od-api-sandbox.oxforddictionaries.com/api/v2/entries/en-gb/ace',
-        headers: {
-            'app_id': app_id,
-            'app_key': app_key,
+    const fetchDefinition = async () => {
+        const app_id = '1e07b935';
+        const app_key = 'a836455e0496b22a23de36c28538c78c';
+        const language = 'en-gb'; // You can specify language here
+        const url_1 = `https://thingproxy.freeboard.io/fetch/https://od-api-sandbox.oxforddictionaries.com/api/v2/entries/en-gb/ace`;
+    
+        try {
+          const response = await axios.get(
+            'https://thingproxy.freeboard.io/fetch/https://od-api-sandbox.oxforddictionaries.com/api/v2/domains/en-gb',
+            {
+                headers: {
+                    app_id,
+                    app_key,
+                },
+            }
+          );
+          setDefinition(response.data);
+          console.log("RESPONSE: ", response.data);
+        } catch (error) {
+          console.error('Error fetching definition:', error);
         }
-    })
-        .then((response) => {
-            console.log("RESPONSE: ", response.data);
-        })
-        .catch(error => { console.log("Error: ", error) }); */
-
-
-    axios.get(url, {
-        mode: "cors",
-        headers: {
-            'content-type': 'application/json',
-            'app_id': app_id,
-            'app_key': app_key
-        }
-    })
-        .then((response) => {
-            console.log("RESPONSE: ", response.data);
-        })
-        .catch(error => {
-            console.log("Error: ", error);
-        });
+      };
 
     return (
-        <div>Dictionary</div>
+        <div>
+      <h1>Oxford Dictionary Lookup</h1>
+      <input
+        type="text"
+        placeholder="Enter a word"
+        value={word}
+        onChange={(e) => setWord(e.target.value)}
+      />
+      <button onClick={fetchDefinition}>Search</button>
+      
+      {definition && (
+        <div>
+          <h2>Definition:</h2>
+          <p>DEFINITION</p>
+        </div>
+      )}
+    </div>
     );
 };
 
