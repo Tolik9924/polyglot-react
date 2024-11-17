@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import Main from '../pages/Main/Main.tsx';
 import Lesson from '../pages/Lesson/Lesson.tsx';
 import CreateTest from '../pages/CreateTest/CreateTest.tsx';
-import Dictionary from '../pages/Dictionary/Dictionary.jsx';
+import Dictionary from '../pages/Dictionary/Dictionary.tsx';
 
 const RouterWrapper = () => {
   return (

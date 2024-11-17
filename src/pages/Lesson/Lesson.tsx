@@ -246,6 +246,8 @@ const Lesson = () => {
     setRandomVariants([...shuffledArray]);
   }, [sentence]);
 
+  console.log("TEST WORD: ", testWord);
+
   return (
     <div className={styles.lessonPage}>
       <div className={styles.prevQuestion}>
