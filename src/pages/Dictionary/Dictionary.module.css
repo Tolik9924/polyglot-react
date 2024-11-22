@@ -46,11 +46,10 @@
 .answer {
   font-size: 50px;
   color: rgb(46, 125, 50);
-  position: absolute;
+  /* position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  margin: 0px 0px;
+  transform: translate(-50%, -50%); */ 
 }
 
 .uncorrectAnswer {
@@ -68,9 +67,15 @@
 .words {
   display: flex;
   flex-direction: row;
-  height: 50px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 50%;
   margin-top: 200px;
   gap: 0px 50px;
+}
+
+.word {
+  margin: 30px 0px;
 }
 
 .pagination :nth-child(2n) {

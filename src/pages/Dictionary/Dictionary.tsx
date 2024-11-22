@@ -7,6 +7,19 @@ import { Button } from 'core_ui_design_system';
 
 import styles from './Dictionary.module.css';
 
+interface Test {
+  id: number;
+  sentence: string;
+  correctAnswer: string;
+  isCompleted: boolean;
+}
+
+interface Answer {
+  id: number;
+  name: string;
+  isCorrect: boolean;
+}
+
 export const Variant = {
   'primary': 'primary',
   'secondary': 'secondary',
@@ -37,25 +50,25 @@ const startTest = [
 ];
 
 const Dictionary = () => {
-  /* const [word, setWord] = useState(''); */
-  const [answers, setAnswers] = useState([]);
+  const [answers, setAnswers] = useState<Answer[]>([]);
+  const [chooseAnswer, setChooseAnswer] = useState<string>("");
 
   // From Lesson Page
-  const [answer, setAnswer] = useState("");
-  const [isNotCorrect, setIsNotCorrect] = useState(false);
-  const [testWordId, setTestWordId] = useState<number>(0);
-  const [testId, setTestId] = useState(1);
+  const [isCorrect, setIsCorrect] = useState(false);
 
-  const [test, setTest] = useState(startTest);
+  const [test, setTest] = useState<Test[]>([]);
   const [sentence, setSentence] = useState({ ...startTest[0] });
-  const [testWord, setTestWord] = useState();
-  const [randomVariants, setRandomVariants] = useState<string[]>([]);
   const [correctAnswers, setCorrectAnswers] = useState<string[]>(sentence.correctAnswer.split(" "));
+  const [answer, setAnswer] = useState(correctAnswers[0]);
+
+  const [testId, setTestId] = useState<number>(1);
+  const [wordId, setWordId] = useState(0);
 
   const fetchDefinition = async (word: string) => {
     const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
     try {
       const response = await axios.get(url);
+      console.log("RESPONSE DATA: ", response.data);
       if (response.data[0].meanings[0].synonyms.length !== 0) {
         setAnswers(response.data[0].meanings[0].synonyms);
       } else if (response.data[0].meanings[0].antonyms.length !== 0) {
@@ -69,26 +82,52 @@ const Dictionary = () => {
   };
 
   const takeAnswersFromDefinition = (data) => {
-    const result = data[0].definition
+    const result: Answer[] = data[0].definition
       .split(" ")
-      .filter(((word) => !word.includes("(") && !word.includes(")")));
-    setAnswers(result);
+      .filter(((word) => !word.includes("(") && !word.includes(")")))
+      .map((item, index) => ({ id: index + 1, name: item, isCorrect: false }));
+    // DELETE DUBLICATE OBJECT
+    setAnswers(shuffle([...result, { id: result.length + 1, name: correctAnswers[0], isCorrect: true }]));
+  };
+
+  const shuffle = (array: Answer[]) => {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
   };
 
   const swapQuestion = () => {
     console.log("SWAP");
   };
 
-  const onClick = (word: string) => {
-    console.log("WORD: ", word);
+  const onClick = (answer: Answer) => {
+    console.log("WORD: ", answer);
+    if (answer.isCorrect) {
+      console.log("ANSWER IS CORRECT");
+    } else {
+      console.log("ANSWER IS NOT CORRECT");
+    }
+    setChooseAnswer(chooseAnswer + ` ${answer.name}`);
+    const word = wordId + 1;
+    setWordId(word + 1);
+    setAnswer(correctAnswers[word]);
+    fetchDefinition(correctAnswers[word]);
   };
 
   console.log("ANSWERS: ", answers);
-
+  console.log("Correct Answers: ", correctAnswers);
+  console.log("ANSWER: ", answer);
 
   useEffect(() => {
-    fetchDefinition(correctAnswers[0]);
+    fetchDefinition(answer);
+    const allQuestions = startTest.map((item) => ({ ...item, isCompleted: false }));
+    setTest([...allQuestions]);
   }, []);
+
+  console.log("TEST: ", test);
 
   return (
     <div className={styles.lessonPage}>
@@ -114,13 +153,13 @@ const Dictionary = () => {
       <div className={styles.sentenceContainer}>
         <p className={styles.sentence}>{sentence.sentence}</p>
         <div className={styles.answerContainer}>
-          {isNotCorrect
+          {isCorrect
             ? <div className={styles.uncorrectAnswerContainer}>
               <p className={styles.uncorrectAnswer}>{answer}</p>
               <p className={styles.answer}>{sentence.correctAnswer}</p>
             </div>
             : <div className={styles.correctAnswerContainer}>
-              <p className={styles.answer}>{answer}</p>
+              <p className={styles.answer}>{chooseAnswer}</p>
             </div>
           }
         </div>
@@ -129,18 +168,18 @@ const Dictionary = () => {
         {
           answers.map((answer) => {
 
-              return (
-                <div key={answer} className={styles.word}>
-                  <Button
-                    size="l"
-                    variant={`${variants[Math.floor(Math.random() * variants.length)] as VariantType}`}
-                    onclick={() => {
-                      onClick(answer);
-                    }}>
-                    {answer}
-                  </Button>
-                </div>
-              );
+            return (
+              <div key={answer.id} className={styles.word}>
+                <Button
+                  size="l"
+                  variant={`${variants[Math.floor(Math.random() * variants.length)] as VariantType}`}
+                  onclick={() => {
+                    onClick(answer);
+                  }}>
+                  {answer.name}
+                </Button>
+              </div>
+            );
           })
         }
       </div>
