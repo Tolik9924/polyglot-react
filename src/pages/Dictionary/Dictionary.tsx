@@ -65,6 +65,13 @@ const Dictionary = () => {
   const [wordId, setWordId] = useState(0);
   const [answeredQuestions, setAnsweredQuestions] = useState(0);
 
+  console.log("ANSWERS: ", answers);
+  console.log("CORRECT ANSWER: ", correctAnswers);
+  console.log("ANSWERD QUESTIONS: ", answeredQuestions);
+  console.log("IS CORRECT: ", isCorrect);
+  console.log("IS CORRECT ANSWER: ", isCorrectAnswer);
+
+
   const fetchDefinition = async (word: string) => {
     console.log("WORD IN FETCH DEFINITION: ", word);
 
@@ -88,18 +95,18 @@ const Dictionary = () => {
   const takeAnswersFromDefinition = (data, correctAnswer: string, type: string) => {
     if (type === 'definitions') {
       const result: Answer[] = data[0].definition
-      .split(" ")
-      .filter(((word) => !word.includes("(") && !word.includes(")")))
-      .filter((word, i, self) => i === self.indexOf(word) && word !== correctAnswer)
-      .map((item, index) => ({ id: index + 1, name: item, isCorrect: false }));
+        .split(" ")
+        .filter(((word) => !word.includes("(") && !word.includes(")")))
+        .filter((word, i, self) => i === self.indexOf(word) && word !== correctAnswer)
+        .map((item, index) => ({ id: index + 1, name: item, isCorrect: false }));
 
-    setAnswers(shuffle([...result, { id: result.length + 1, name: correctAnswer, isCorrect: true }]));
-    } 
-    
+      setAnswers(shuffle([...result, { id: result.length + 1, name: correctAnswer, isCorrect: true }]));
+    }
+
     if (type === 'synonyms' || type === 'antonyms') {
       const result = data
         .map((item, index) => ({ id: index + 1, name: item, isCorrect: false }));
-      
+
       setAnswers(shuffle([...result, { id: result.length + 1, name: correctAnswer, isCorrect: true }]));
     }
   };
@@ -111,10 +118,6 @@ const Dictionary = () => {
       [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
     }
     return newArray;
-  };
-
-  const swapQuestion = () => {
-    console.log("SWAP");
   };
 
   const onClick = (answer: Answer) => {
@@ -145,7 +148,28 @@ const Dictionary = () => {
       }
     }
 
-  setChooseAnswer(chooseAnswer + ` ${answer.name}`);
+    setChooseAnswer(chooseAnswer + ` ${answer.name}`);
+  };
+
+  const swapQuestion = (id: number) => {
+    let questionId: number = 0;
+    if (id <= test.length) {
+      questionId = id;
+      setTestId(id);
+      showSentence(id);
+    }
+
+    if (id > test.length) {
+      questionId = 1;
+      setTestId(questionId);
+      showSentence(questionId);
+    }
+
+    if (id < 1) {
+      questionId = test.length;
+      setTestId(questionId);
+      showSentence(questionId);
+    }
   };
 
   const showSentence = (id: number) => {
@@ -158,6 +182,8 @@ const Dictionary = () => {
         fetchDefinition(startTest[i].correctAnswer.split(" ")[0]);
         setWordId(0);
         setAnsweredQuestions(0);
+        setIsCorrect(false);
+        setIsCorrectAnswer(0);
       }
     }
   };
@@ -178,7 +204,7 @@ const Dictionary = () => {
         <Button
           variant="primary"
           size="l"
-          onclick={() => swapQuestion()}
+          onclick={() => swapQuestion(testId - 1)}
         >
           <LeftOutlined />
         </Button>
@@ -187,7 +213,7 @@ const Dictionary = () => {
         <Button
           variant="primary"
           size="l"
-          onclick={() => swapQuestion()}
+          onclick={() => swapQuestion(testId + 1)}
         >
           <RightOutlined />
         </Button>
@@ -196,13 +222,22 @@ const Dictionary = () => {
       <div className={styles.sentenceContainer}>
         <p className={styles.sentence}>{sentence.sentence}</p>
         <div className={styles.answerContainer}>
-          {isCorrect
-            ? <div className={styles.uncorrectAnswerContainer}>
-              <p className={styles.uncorrectAnswer}>{sentence.correctAnswer}</p>
+          {answeredQuestions !== correctAnswers.length &&
+            <div className={styles.correctAnswerContainer}>
+              <p className={styles.answer}>{chooseAnswer}</p>
+            </div>
+          }
+          {isCorrect && answeredQuestions === correctAnswers.length &&
+            <div className={styles.correctAnswerContainer}>
+              <p className={styles.answer}>{sentence.correctAnswer}</p>
               <p className={styles.answer}>You Complete Test.</p>
             </div>
-            : <div className={styles.correctAnswerContainer}>
-              <p className={styles.answer}>{chooseAnswer}</p>
+          }
+          {!isCorrect && answeredQuestions === correctAnswers.length &&
+            <div className={styles.uncorrectAnswerContainer}>
+              <p className={styles.uncorrectAnswer}>{chooseAnswer}</p>
+              <p className={styles.answer}>{sentence.correctAnswer}</p>
+              <p className={styles.uncorrectAnswer}>Wrong Answer!</p>
             </div>
           }
         </div>
