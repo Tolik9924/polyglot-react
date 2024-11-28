@@ -1,0 +1,17 @@
+.lessonsPage {
+  padding: 50px 50px;
+
+}
+
+.header {
+  display: flex;;
+  justify-content: center;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-self: space-around;
+  gap: 30px;
+}
