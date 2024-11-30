@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Button, Input } from 'antd';
-import { useForm, SubmitHandler, Controller } from "react-hook-form"
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
 import styles from './CreateTest.module.css';
 

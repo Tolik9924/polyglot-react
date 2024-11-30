@@ -1,0 +1,27 @@
+.loginFormContainer {
+    padding: 10px 35px;
+}
+
+.loginHeader {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+.formItem {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.nameOfItem {
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.sendLogin {
+    margin-top: 50px;
+}

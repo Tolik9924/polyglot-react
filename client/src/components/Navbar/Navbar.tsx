@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -7,23 +7,18 @@ import { Button, ConfigProvider } from "antd";
 import { classes } from '../../common_utils/classes/classes.tsx';
 
 import styles from './Navbar.module.css';
-
-export type NavItem = {
-    id: string;
-    name: string;
-};
+import { OpenModalContext } from '../../context/OpenModalContext.tsx';
 
 export type Props = {
-    list: NavItem[];
     isSticky?: boolean
 };
 
 const Navbar = ({
-    list,
     isSticky = false
 }: Props) => {
 
     const navigate = useNavigate();
+    const { setIsOpen } = useContext(OpenModalContext);
 
     const handleClick = () => {
         navigate('/');
@@ -36,10 +31,10 @@ const Navbar = ({
         })}>
             <div className={styles.navResponsive}>
                 <div className={styles.logoContainer}>
-                    <Button 
+                    <Button
                         style={{
                             color: '#fff'
-                        }} 
+                        }}
                         type='text' ghost
                         onClick={handleClick}
                     >
@@ -47,32 +42,28 @@ const Navbar = ({
                     </Button>
                 </div>
                 <ul className={styles.nav}>
-                    {
-                        list.map((item) => (
-                            <li
-                                className={styles.navItem}
-                                key={item.id}
+                    <li className={styles.navItem}>
+                        <ConfigProvider
+                            theme={{
+                                token: {
+                                    colorPrimary: '#fff',
+                                    colorPrimaryActive: 'rgb(35 39 47 / 0.95)'
+                                },
+                                components: {
+                                    Button: {
+                                        defaultHoverBorderColor: 'rgb(35 39 47 / 0.95)',
+                                    },
+                                },
+                            }}
+                        >
+                            <Button 
+                                ghost
+                                onClick={() => setIsOpen(true)}
                             >
-                                <ConfigProvider
-                                    theme={{
-                                        token: {
-                                            colorPrimary: '#fff',
-                                            colorPrimaryActive: 'rgb(35 39 47 / 0.95)'
-                                        },
-                                        components: {
-                                            Button: {
-                                                defaultHoverBorderColor: 'rgb(35 39 47 / 0.95)',
-                                            },
-                                        },
-                                    }}
-                                >
-                                    <Button ghost>
-                                        {item.name}
-                                    </Button>
-                                </ConfigProvider>
-                            </li>
-                        ))
-                    }
+                                Login
+                            </Button>
+                        </ConfigProvider>
+                    </li>
                 </ul>
             </div>
         </nav>
