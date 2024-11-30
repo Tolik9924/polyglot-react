@@ -1,6 +1,9 @@
 import React from 'react';
-import styles from "./Modal.module.css";
+
 import { Button } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
+
+import styles from "./Modal.module.css";
 
 const Modal = ({ setIsOpen, children }) => {
   return (
@@ -8,11 +11,17 @@ const Modal = ({ setIsOpen, children }) => {
       <div className={styles.darkBG} onClick={() => setIsOpen(false)} />
       <div className={styles.centered}>
         <div className={styles.modal}>
-          <Button className={styles.closeBtn} onClick={() => setIsOpen(false)}>
-            X
-          </Button>
+          <div className={styles.closeBtnContainer}>
+            <Button 
+              className={styles.closeBtn} 
+              onClick={() => setIsOpen(false)}
+              type='text'
+            >
+              <CloseOutlined />
+            </Button>
+          </div>
           <div className={styles.modalContent}>
-           {children}
+            {children}
           </div>
         </div>
       </div>

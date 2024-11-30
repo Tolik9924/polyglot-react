@@ -1,22 +1,22 @@
 import React from 'react';
 
+import { Button, Input } from 'antd';
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
 import styles from './Login.module.css';
-import { Button, Input } from 'antd';
 
 interface ILogin {
-    username: string,
+    email: string,
     password: string,
-  }
+}
 
 const Login = () => {
-    const { control, handleSubmit, formState: { errors } } = useForm<ILogin>({
+    const { control, handleSubmit } = useForm<ILogin>({
         defaultValues: {
-          username: "",
-          password: "",
+            email: "",
+            password: "",
         }
-      });
+    });
 
     const onSubmit: SubmitHandler<ILogin> = (data) => {
         console.log("Data: ", data)
@@ -26,29 +26,32 @@ const Login = () => {
         <div className={styles.loginFormContainer}>
             <h3 className={styles.loginHeader}>Login</h3>
             <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
-                <div className={styles.formItem}>
-                    <p className={styles.nameOfItem}>Username: </p>
-                    <Controller 
-                        name="username"
-                        control={control}
-                        render={({ field }) => <Input 
-                            size='large' 
-                            {...field}
-                            placeholder='Email or Phone'
-                        />}
-                    />
-                </div>
-                <div className={styles.formItem}>
-                    <p className={styles.nameOfItem}>Password: </p>
-                    <Controller 
-                        name="password"
-                        control={control}
-                        render={({ field }) => <Input 
-                            size='large' 
-                            {...field} 
-                            placeholder='Password'
-                        />}
-                    />
+                <div className={styles.formItems}>
+                    <div className={styles.formItem}>
+                        <p className={styles.nameOfItem}>Email: </p>
+                        <Controller
+                            name="email"
+                            control={control}
+                            type="email"
+                            render={({ field }) => <Input
+                                size='large'
+                                {...field}
+                                placeholder='Email'
+                            />}
+                        />
+                    </div>
+                    <div className={styles.formItem}>
+                        <p className={styles.nameOfItem}>Password: </p>
+                        <Controller
+                            name="password"
+                            control={control}
+                            render={({ field }) => <Input.Password
+                                size='large'
+                                {...field}
+                                placeholder='Password'
+                            />}
+                        />
+                    </div>
                 </div>
                 <div className={styles.sendLogin}>
                     <Button

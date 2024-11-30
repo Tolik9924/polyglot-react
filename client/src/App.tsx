@@ -23,6 +23,7 @@ function App() {
               className='switch-button'
               type='text'
               onClick={() => setOpenLogin(true)}
+              disabled={openLogin}
             >
               Login
             </Button>
@@ -30,6 +31,7 @@ function App() {
               className='switch-button'
               type='text'
               onClick={() => setOpenLogin(false)}
+              disabled={!openLogin}
             >
               Registration
             </Button>
