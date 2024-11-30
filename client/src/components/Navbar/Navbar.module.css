@@ -8,10 +8,6 @@
   backdrop-filter: blur(16px);
   transition-property: box-shadow;
   transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-
-  /* display: flex;
-  align-items: center;
-  justify-content: space-between; */
 }
 
 .relativeNavContainer {
@@ -24,20 +20,25 @@
 
 .navResponsive {
   position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
 }
 
 .nav {
   display: flex;
-  /* flex-wrap: wrap; */
   list-style: none;
   margin-bottom: 0;
   padding-bottom: 0;
-  padding-left: 1.75rem;
-  padding-right: 1.75rem;
   border-bottom: 0;
   margin: 0;
-  justify-content: space-between;
-
 }
 
 .navItem {
@@ -52,10 +53,9 @@
   padding-bottom: .375rem;
 }
 
-/* .navItem:hover {
-  background-color: rgba(246, 247, 249, .05);
-  border-radius: 50%;
-} */
+.navItem:nth-child(2n) {
+  margin-left: 10px;
+}
 
 .navLink {
   display: flex;
@@ -71,10 +71,6 @@
   pointer-events:none;
   background-color: transparent;
 }
-
-/* .navLink:hover {
-  background-color: red;
-} */
 
 .navLinkNotActive {
   border-bottom: .2rem solid transparent;

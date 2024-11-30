@@ -9,10 +9,6 @@ import Navbar from './components/Navbar/Navbar.tsx';
 const navbar = [
   {
     "id": "1",
-    "name": "Logo"
-  },
-  {
-    "id": "2",
     "name": "Login"
   },
 ];
@@ -20,8 +16,8 @@ const navbar = [
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <Navbar list={navbar} isSticky />
     <BrowserRouter>
+      <Navbar list={navbar} isSticky />
       <App />
     </BrowserRouter>
   </React.StrictMode>

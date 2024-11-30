@@ -1,4 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import { useNavigate } from 'react-router-dom';
+
+import { Button, ConfigProvider } from "antd";
 
 import { classes } from '../../common_utils/classes/classes.tsx';
 
@@ -19,11 +23,11 @@ const Navbar = ({
     isSticky = false
 }: Props) => {
 
-    const [activeItem, setActiveItem] = useState<string>("");
+    const navigate = useNavigate();
 
-    const handleActiveItem = (item: string) => {
-        setActiveItem(item);
-    }
+    const handleClick = () => {
+        navigate('/');
+    };
 
     return (
         <nav className={classes(styles.navContainer, {
@@ -31,23 +35,41 @@ const Navbar = ({
             [styles.stickyNavContainer]: isSticky,
         })}>
             <div className={styles.navResponsive}>
+                <div className={styles.logoContainer}>
+                    <Button 
+                        style={{
+                            color: '#fff'
+                        }} 
+                        type='text' ghost
+                        onClick={handleClick}
+                    >
+                        Logo
+                    </Button>
+                </div>
                 <ul className={styles.nav}>
                     {
                         list.map((item) => (
-                            <li 
-                                className={styles.navItem} 
+                            <li
+                                className={styles.navItem}
                                 key={item.id}
-                                onClick={() => handleActiveItem(item.id)}
                             >
-                                <a 
-                                    className={classes(styles.navLink, {
-                                        [styles.navLinkActive]: activeItem === item.id,
-                                        [styles.navLinkNotActive]: activeItem !== item.id
-                                    })}
-                                    href={`/${item.name}`}
+                                <ConfigProvider
+                                    theme={{
+                                        token: {
+                                            colorPrimary: '#fff',
+                                            colorPrimaryActive: 'rgb(35 39 47 / 0.95)'
+                                        },
+                                        components: {
+                                            Button: {
+                                                defaultHoverBorderColor: 'rgb(35 39 47 / 0.95)',
+                                            },
+                                        },
+                                    }}
                                 >
-                                    {item.name}
-                                </a>
+                                    <Button ghost>
+                                        {item.name}
+                                    </Button>
+                                </ConfigProvider>
                             </li>
                         ))
                     }
