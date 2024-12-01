@@ -19,49 +19,51 @@ function App() {
   const { theme } = useContext(ChangeThemeContext);
 
   return (
-    <div className="App">
-      {isOpen && <Modal setIsOpen={setIsOpen}>
-        <div className="modal-container">
-          <div className='switch-form-container'>
-            <Button
-              style={{
-                width: '200px',
-                fontSize: '22px',
-                fontWeight: 500,
-                lineHeight: '32px',
-                color: theme === 'light' ? 
-                  openLogin ? '#7f7f7f' : 'rgb(35 39 47 / 0.95)' : 
-                  openLogin ? '#b2b2b2' : '#fff' 
-              }}
-              type='text'
-              onClick={() => setOpenLogin(true)}
-              disabled={openLogin}
-            >
-              Login
-            </Button>
-            <Button
-              style={{
-                width: '200px',
-                fontSize: '22px',
-                fontWeight: 500,
-                lineHeight: '32px',
-                color: theme === 'light' ? 
-                !openLogin ? '#7f7f7f' : 'rgb(35 39 47 / 0.95)' : 
-                !openLogin ? '#b2b2b2' : '#fff'
-              }}
-              type='text'
-              onClick={() => setOpenLogin(false)}
-              disabled={!openLogin}
-            >
-              Registration
-            </Button>
+    <div className='body' data-theme={theme}>
+      <div className={"App"}>
+        {isOpen && <Modal setIsOpen={setIsOpen}>
+          <div className="modal-container">
+            <div className='switch-form-container'>
+              <Button
+                style={{
+                  width: '200px',
+                  fontSize: '22px',
+                  fontWeight: 500,
+                  lineHeight: '32px',
+                  color: theme === 'light' ?
+                    openLogin ? '#7f7f7f' : 'rgb(35 39 47 / 0.95)' :
+                    openLogin ? '#b2b2b2' : '#fff'
+                }}
+                type='text'
+                onClick={() => setOpenLogin(true)}
+                disabled={openLogin}
+              >
+                Login
+              </Button>
+              <Button
+                style={{
+                  width: '200px',
+                  fontSize: '22px',
+                  fontWeight: 500,
+                  lineHeight: '32px',
+                  color: theme === 'light' ?
+                    !openLogin ? '#7f7f7f' : 'rgb(35 39 47 / 0.95)' :
+                    !openLogin ? '#b2b2b2' : '#fff'
+                }}
+                type='text'
+                onClick={() => setOpenLogin(false)}
+                disabled={!openLogin}
+              >
+                Registration
+              </Button>
+            </div>
+            <div className='form'>
+              {openLogin ? <Login /> : <Registration />}
+            </div>
           </div>
-          <div className='form'>
-            {openLogin ? <Login /> : <Registration />}
-          </div>
-        </div>
-      </Modal>}
-      <RouterWrapper />
+        </Modal>}
+        <RouterWrapper />
+      </div>
     </div>
   );
 }
