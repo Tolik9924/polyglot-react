@@ -20,11 +20,20 @@
 .modal {
   min-width: 250px;
   min-height: 170px;
-  background: white;
-  color: white;
   z-index: 10;
-  border-radius: 16px;
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+}
+
+.lightTheme {
+  background: #fff;
+  color: rgb(35 39 47 / 0.95);
+  border-radius: 16px;
+}
+
+.darkTheme {
+  background: rgb(35 39 47 / 0.95);
+  color: #fff;
+  border-radius: 16px;
 }
 
 .modalHeader {
@@ -45,9 +54,7 @@
 }
 
 .modalContent {
-  /* padding: 10px; */
   font-size: 14px;
-  color: #2c3e50;
   text-align: center;
 }
 

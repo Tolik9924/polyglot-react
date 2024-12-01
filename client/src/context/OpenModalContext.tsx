@@ -11,12 +11,12 @@ interface IOpenModalContext {
 }
 
 const OpenModalContext = createContext<IOpenModalContext>({
-    isOpen: true,
+    isOpen: false,
     setIsOpen: () => {},
 });
 
 const OpenModalProvider = ({ children }) => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
         <OpenModalContext.Provider value={{ isOpen, setIsOpen }}>

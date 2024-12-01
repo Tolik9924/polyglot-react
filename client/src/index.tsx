@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 /* import { Navbar } from "core_ui_design_system"; */
 import Navbar from './components/Navbar/Navbar.tsx';
 import { OpenModalProvider } from './context/OpenModalContext.tsx';
+import { ChangeThemeProvider } from './context/ChangeThemeContext.tsx';
 
 const navbar = [
   {
@@ -19,8 +20,10 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <OpenModalProvider>
-        <Navbar isSticky />
-        <App />
+        <ChangeThemeProvider>
+          <Navbar isSticky />
+          <App />
+        </ChangeThemeProvider>
       </OpenModalProvider>
     </BrowserRouter>
   </React.StrictMode>

@@ -17,3 +17,15 @@ body {
     font-weight: 500;
     line-height: 32px;
 }
+
+.light-theme-button {
+    color: rgb(35 39 47 / 0.95);
+}
+
+.dark-theme-button {
+    color: #fff;
+}
+
+.dark-theme-button:hover {
+    color: red;
+}
