@@ -1,23 +1,14 @@
 [data-theme="light"] {
-    --background: #fff;
     --color: rgb(35 39 47 / 0.95);
 }
 
 [data-theme="dark"] {
-    --background: rgb(35 39 47 / 0.95);
     --color: #fff;
 }
 
 .body {
-    min-height: 96.5vh;
-    background: var(--background);
     color: var(--color);
 }
-
-.App {
-    /* min-height: 96.5vh; */
-}
-
 
 .modal-container {
     padding: 10px 10px;

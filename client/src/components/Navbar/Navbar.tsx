@@ -12,6 +12,7 @@ import { classes } from '../../common_utils/classes/classes.tsx';
 import { MoonOutlined, SunOutlined } from '@ant-design/icons';
 
 import styles from './Navbar.module.css';
+import setBodyColor from '../../common_utils/setBodyColor/setBodyColor.tsx';
 
 export type Props = {
     isSticky?: boolean
@@ -94,7 +95,10 @@ const Navbar = ({
                                     e.currentTarget.style.borderColor = theme === 'light' ? 'rgb(35 39 47 / 0.95)' : '#fff'
                                 }}
                                 ghost
-                                onClick={() => setIsOpen(true)}
+                                onClick={() => {
+                                    setIsOpen(true);
+                                }
+                                }
                             >
                                 Login
                             </Button>

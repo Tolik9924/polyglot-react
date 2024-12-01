@@ -8,8 +8,8 @@ import './App.css';
 import { Button } from 'antd';
 import Login from './components/Login/Login.tsx';
 import Registration from './components/Registration/Registration.tsx';
-import { classes } from 'core_ui_design_system';
 import { ChangeThemeContext } from './context/ChangeThemeContext.tsx';
+import setBodyColor from './common_utils/setBodyColor/setBodyColor.tsx';
 
 function App() {
   const { isOpen, setIsOpen } = useContext(OpenModalContext);
@@ -17,6 +17,15 @@ function App() {
   const [openLogin, setOpenLogin] = useState(true);
 
   const { theme } = useContext(ChangeThemeContext);
+
+  useEffect(() => {
+    if (theme === 'light') {
+      setBodyColor({color: "#ffffff"});
+    }  
+    if (theme === 'dark'){
+      setBodyColor({color: "rgb(35 39 47 / 0.95)"});
+    }
+  }, [theme]);
 
   return (
     <div className='body' data-theme={theme}>
