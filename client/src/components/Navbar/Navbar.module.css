@@ -6,13 +6,6 @@
   backdrop-filter: blur(16px);
   transition-property: box-shadow;
   transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-}
-
-.darkTheme {
-  background-color: rgb(35 39 47 / 0.95);
-}
-
-.lightTheme {
   background-color:#fff;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
 }
