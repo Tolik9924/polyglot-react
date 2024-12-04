@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ButtonAnt from '../../ui-components/ButtonAnt/ButtonAnt.tsx';
+import Button from '../../ui-components/Button/Button.tsx';
 import { CloseOutlined } from '@ant-design/icons';
 
 import styles from "./Modal.module.css";
@@ -11,12 +11,12 @@ const Modal = ({ setIsOpen, children }) => (
     <div className={styles.centered}>
       <div className={styles.modal}>
         <div className={styles.closeBtnContainer}>
-          <ButtonAnt
+          <Button
             onClick={() => setIsOpen(false)}
-            variant='link'
+            type="link"
           >
             <CloseOutlined className="closeBtn" />
-          </ButtonAnt>
+          </Button>
         </div>
         <div className={styles.modalContent}>
           {children}

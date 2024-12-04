@@ -53,6 +53,6 @@
   padding-bottom: .375rem;
 }
 
-.navItem:nth-child(2n) {
+.navItem:nth-child(1n) {
   margin-left: 10px;
 }

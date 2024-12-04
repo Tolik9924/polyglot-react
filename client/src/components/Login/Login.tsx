@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Input } from 'antd';
-import ButtonAnt from '../../ui-components/ButtonAnt/ButtonAnt.tsx';
+import Button from '../../ui-components/Button/Button.tsx';
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
 import styles from './Login.module.css';
@@ -54,14 +54,14 @@ const Login = () => {
                     </div>
                 </div>
                 <div className={styles.sendLogin}>
-                    <ButtonAnt
+                    <Button
                         size="large"
                         type='primary'
                         htmlType='submit'
                         block
                     >
                         Log In
-                    </ButtonAnt>
+                    </Button>
                 </div>
             </form>
         </div>

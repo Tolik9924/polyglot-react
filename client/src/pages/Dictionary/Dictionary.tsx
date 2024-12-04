@@ -65,20 +65,10 @@ const Dictionary = () => {
   const [wordId, setWordId] = useState(0);
   const [answeredQuestions, setAnsweredQuestions] = useState(0);
 
-  console.log("ANSWERS: ", answers);
-  console.log("CORRECT ANSWER: ", correctAnswers);
-  console.log("ANSWERD QUESTIONS: ", answeredQuestions);
-  console.log("IS CORRECT: ", isCorrect);
-  console.log("IS CORRECT ANSWER: ", isCorrectAnswer);
-
-
   const fetchDefinition = async (word: string) => {
-    console.log("WORD IN FETCH DEFINITION: ", word);
-
     const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
     try {
       const response = await axios.get(url);
-      console.log("RESPONSE DATA: ", response.data);
       if (response.data[0].meanings[0].synonyms.length !== 0) {
         await takeAnswersFromDefinition(response.data[0].meanings[0].synonyms, word, 'synonyms');
       } else if (response.data[0].meanings[0].antonyms.length !== 0) {

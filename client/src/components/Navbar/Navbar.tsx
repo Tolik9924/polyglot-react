@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import ButtonAnt from '../../ui-components/ButtonAnt/ButtonAnt.tsx';
+import Button from '../../ui-components/Button/Button.tsx';
 
 import { OpenModalContext } from '../../context/OpenModalContext.tsx';
 
@@ -23,8 +23,8 @@ const Navbar = ({
     const navigate = useNavigate();
     const { setIsOpen } = useContext(OpenModalContext);
 
-    const handleClick = () => {
-        navigate('/');
+    const handleClick = (link: string) => {
+        navigate(link);
     };
 
     return (
@@ -34,34 +34,43 @@ const Navbar = ({
         })}>
             <div className={styles.navResponsive}>
                 <div className={styles.logoContainer}>
-                    <ButtonAnt
+                    <Button
                         type='text'
                         ghost
-                        onClick={handleClick}
+                        onClick={() => handleClick('/')}
                     >
                         Logo
-                    </ButtonAnt>
+                    </Button>
                 </div>
                 <ul className={styles.nav}>
                     <li className={styles.navItem}>
-                        <ButtonAnt
+                        <Button
+                            type='primary'
+                            ghost
+                            onClick={() => handleClick('/chat')}
+                        >
+                            Chat
+                        </Button>
+                    </li>
+                    <li className={styles.navItem}>
+                        <Button
                             type='primary'
                             ghost
                             onClick={() => {
                                 setIsOpen(true);
-                                }
+                            }
                             }
                         >
                             Login
-                        </ButtonAnt>
+                        </Button>
                     </li>
                     <li className={styles.navItem}>
-                        <ButtonAnt
+                        <Button
                             type='primary'
                             ghost
                         >
                             <MoonOutlined />
-                        </ButtonAnt>
+                        </Button>
                     </li>
                 </ul>
             </div>
