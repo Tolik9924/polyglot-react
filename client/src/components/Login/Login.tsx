@@ -1,9 +1,9 @@
-import React from 'react';
-
+import React, { useContext } from 'react';
 import { Input } from 'antd';
-import Button from '../../ui-components/Button/Button.tsx';
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-
+import Button from '../../ui-components/Button/Button.tsx';
+import { LoginContext } from '../../context/LoginContext.tsx';
+import { OpenModalContext } from '../../context/OpenModalContext.tsx';
 import styles from './Login.module.css';
 
 interface ILogin {
@@ -12,6 +12,9 @@ interface ILogin {
 }
 
 const Login = () => {
+    const { setIsLogin } = useContext(LoginContext);
+    const { setIsOpen } = useContext(OpenModalContext);
+
     const { control, handleSubmit } = useForm<ILogin>({
         defaultValues: {
             email: "",
@@ -20,7 +23,9 @@ const Login = () => {
     });
 
     const onSubmit: SubmitHandler<ILogin> = (data) => {
-        console.log("Data: ", data)
+        console.log("Data: ", data);
+        setIsLogin(true);
+        setIsOpen(false);
     }
 
     return (

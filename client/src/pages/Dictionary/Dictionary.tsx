@@ -1,10 +1,7 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-
+import axios from 'axios';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-
 import { Button } from 'core_ui_design_system';
-
 import styles from './Dictionary.module.css';
 
 interface Test {

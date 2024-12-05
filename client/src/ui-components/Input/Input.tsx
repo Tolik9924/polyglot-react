@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { Input as InputAnt } from 'antd';
-
 import type { InputProps } from 'antd';
 
 export const VariantInput = {

@@ -1,10 +1,7 @@
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
 import { Button } from 'core_ui_design_system';
-import { useEffect, useState } from 'react';
-import styles from './Lesson.module.css';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-
+import styles from './Lesson.module.css';
 
 interface SubQuestion {
   id: number;

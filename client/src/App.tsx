@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
-
-import RouterWrapper from './routes/AppRouter.tsx';
-import Modal from './components/Modal/Modal.tsx';
-import { OpenModalContext } from './context/OpenModalContext.tsx';
-
-import './App.css';
 import { Button } from 'antd';
+import Modal from './components/Modal/Modal.tsx';
 import Login from './components/Login/Login.tsx';
 import Registration from './components/Registration/Registration.tsx';
+import RouterWrapper from './routes/AppRouter.tsx';
+import { OpenModalContext } from './context/OpenModalContext.tsx';
 import { ChangeThemeContext } from './context/ChangeThemeContext.tsx';
+import { LoginContext } from './context/LoginContext.tsx';
 import setBodyColor from './common_utils/setBodyColor/setBodyColor.tsx';
+import './App.css';
 
 function App() {
   const { isOpen, setIsOpen } = useContext(OpenModalContext);
+  const { isLogin, setIsLogin } = useContext(LoginContext);
 
   const [openLogin, setOpenLogin] = useState(true);
 
@@ -20,17 +20,17 @@ function App() {
 
   useEffect(() => {
     if (theme === 'light') {
-      setBodyColor({color: "#ffffff"});
-    }  
-    if (theme === 'dark'){
-      setBodyColor({color: "rgb(35 39 47 / 0.95)"});
+      setBodyColor({ color: "#ffffff" });
+    }
+    if (theme === 'dark') {
+      setBodyColor({ color: "rgb(35 39 47 / 0.95)" });
     }
   }, [theme]);
 
   return (
     <div className='body' data-theme={theme}>
       <div className={"App"}>
-        {isOpen && <Modal setIsOpen={setIsOpen}>
+        {!isLogin && isOpen && <Modal setIsOpen={setIsOpen}>
           <div className="modal-container">
             <div className='switch-form-container'>
               <Button
@@ -69,6 +69,21 @@ function App() {
             <div className='form'>
               {openLogin ? <Login /> : <Registration />}
             </div>
+          </div>
+        </Modal>}
+        {isLogin && isOpen && <Modal setIsOpen={setIsOpen}>
+          <div className='profile-container'>
+            <h3 className='profile-header'>Profile</h3>
+            <Button
+              type='primary'
+              ghost
+              onClick={() => {
+                setIsLogin(false);
+                setIsOpen(false);
+              }}
+            >
+              Logout
+            </Button>
           </div>
         </Modal>}
         <RouterWrapper />

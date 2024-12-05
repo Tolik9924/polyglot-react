@@ -32,6 +32,14 @@
   align-items: center;
 }
 
+.logo {
+  font-size: 30px;
+}
+
+.chat {
+  font-size: 20px;
+}
+
 .nav {
   display: flex;
   list-style: none;

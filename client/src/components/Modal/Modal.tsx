@@ -1,8 +1,6 @@
 import React from 'react';
-
 import Button from '../../ui-components/Button/Button.tsx';
 import { CloseOutlined } from '@ant-design/icons';
-
 import styles from "./Modal.module.css";
 
 const Modal = ({ setIsOpen, children }) => (

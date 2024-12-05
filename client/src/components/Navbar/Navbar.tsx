@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
-
-import Button from '../../ui-components/Button/Button.tsx';
-
-import { OpenModalContext } from '../../context/OpenModalContext.tsx';
-
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { 
+    MoonOutlined, 
+    StrikethroughOutlined, 
+    CommentOutlined, 
+    UserOutlined 
+} from '@ant-design/icons';
+import Button from '../../ui-components/Button/Button.tsx';
+import { OpenModalContext } from '../../context/OpenModalContext.tsx';
+import { LoginContext } from '../../context/LoginContext.tsx';
 import { classes } from '../../common_utils/classes/classes.tsx';
-
-import { MoonOutlined } from '@ant-design/icons';
-
 import styles from './Navbar.module.css';
 
 export type Props = {
@@ -22,6 +22,7 @@ const Navbar = ({
 
     const navigate = useNavigate();
     const { setIsOpen } = useContext(OpenModalContext);
+    const { isLogin } = useContext(LoginContext);
 
     const handleClick = (link: string) => {
         navigate(link);
@@ -35,24 +36,26 @@ const Navbar = ({
             <div className={styles.navResponsive}>
                 <div className={styles.logoContainer}>
                     <Button
+                        className={styles.logo}
                         type='text'
                         ghost
                         onClick={() => handleClick('/')}
                     >
-                        Logo
+                        <StrikethroughOutlined />
                     </Button>
                 </div>
                 <ul className={styles.nav}>
-                    <li className={styles.navItem}>
+                    {isLogin && <li className={styles.navItem}>
                         <Button
+                            className={styles.chat}
                             type='primary'
                             ghost
                             onClick={() => handleClick('/chat')}
                         >
-                            Chat
+                            <CommentOutlined />
                         </Button>
-                    </li>
-                    <li className={styles.navItem}>
+                    </li>}
+                    {!isLogin && <li className={styles.navItem}>
                         <Button
                             type='primary'
                             ghost
@@ -63,7 +66,18 @@ const Navbar = ({
                         >
                             Login
                         </Button>
-                    </li>
+                    </li>}
+                    {isLogin && <li className={styles.navItem}>
+                        <Button
+                            type='primary'
+                            ghost
+                            onClick={() => {
+                                setIsOpen(true);
+                            }}
+                        >
+                            <UserOutlined />
+                        </Button>
+                    </li>}
                     <li className={styles.navItem}>
                         <Button
                             type='primary'

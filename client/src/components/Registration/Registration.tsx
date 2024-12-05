@@ -1,9 +1,7 @@
 import React from 'react';
-
 import { Input } from 'antd';
-import Button from '../../ui-components/Button/Button.tsx';
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-
+import Button from '../../ui-components/Button/Button.tsx';
 import styles from './Registration.module.css';
 
 interface IRegistration {

@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { Route, Routes } from 'react-router-dom';
-
 import Main from '../pages/Main/Main.tsx';
 import Lesson from '../pages/Lesson/Lesson.tsx';
 import CreateTest from '../pages/CreateTest/CreateTest.tsx';

@@ -1,4 +1,4 @@
-export class ThemeLocalStorage {
+export class LocalStorageTheme {
   setItem(key, value) {
     localStorage.setItem(key, value);
   }
