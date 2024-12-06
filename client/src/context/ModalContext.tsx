@@ -5,24 +5,24 @@ import React, {
     SetStateAction 
 } from 'react';
 
-interface IOpenModalContext {
+interface IModalContext {
     isOpen: boolean;
     setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const OpenModalContext = createContext<IOpenModalContext>({
+const ModalContext = createContext<IModalContext>({
     isOpen: false,
     setIsOpen: () => {},
 });
 
-const OpenModalProvider = ({ children }) => {
+const ModalProvider = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <OpenModalContext.Provider value={{ isOpen, setIsOpen }}>
+        <ModalContext.Provider value={{ isOpen, setIsOpen }}>
             {children}
-        </OpenModalContext.Provider>
+        </ModalContext.Provider>
     );
 };
 
-export { OpenModalContext, OpenModalProvider };
+export { ModalContext, ModalProvider };

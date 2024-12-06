@@ -4,7 +4,7 @@ import React, {
   Dispatch, 
   SetStateAction 
 } from 'react';
-import { LocalStorageTheme } from '../common_utils/localStorage/ThemeLocalStorage.tsx';
+import { getItem } from '../common_utils/localStorage/localStorage.tsx';
 
 interface IChangeThemeContext {
   theme: string;
@@ -17,10 +17,8 @@ const ChangeThemeContext = createContext<IChangeThemeContext>({
 });
 
 const ChangeThemeProvider = ({ children }) => {
-  let themeLocalStorage = new LocalStorageTheme();
-
   const [theme, setTheme] = useState(() => {
-		const initialTheme = themeLocalStorage.getItem("theme");
+		const initialTheme = getItem("theme");
 		return initialTheme ? initialTheme : "light";
 	});
 

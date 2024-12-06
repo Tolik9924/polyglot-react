@@ -4,14 +4,14 @@ import Modal from './components/Modal/Modal.tsx';
 import Login from './components/Login/Login.tsx';
 import Registration from './components/Registration/Registration.tsx';
 import RouterWrapper from './routes/AppRouter.tsx';
-import { OpenModalContext } from './context/OpenModalContext.tsx';
+import { ModalContext } from './context/ModalContext.tsx';
 import { ChangeThemeContext } from './context/ChangeThemeContext.tsx';
 import { LoginContext } from './context/LoginContext.tsx';
 import setBodyColor from './common_utils/setBodyColor/setBodyColor.tsx';
 import './App.css';
 
 function App() {
-  const { isOpen, setIsOpen } = useContext(OpenModalContext);
+  const { isOpen, setIsOpen } = useContext(ModalContext);
   const { isLogin, setIsLogin } = useContext(LoginContext);
 
   const [openLogin, setOpenLogin] = useState(true);

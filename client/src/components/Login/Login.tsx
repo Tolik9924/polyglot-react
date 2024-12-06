@@ -3,7 +3,7 @@ import { Input } from 'antd';
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Button from '../../ui-components/Button/Button.tsx';
 import { LoginContext } from '../../context/LoginContext.tsx';
-import { OpenModalContext } from '../../context/OpenModalContext.tsx';
+import { ModalContext } from '../../context/ModalContext.tsx';
 import styles from './Login.module.css';
 
 interface ILogin {
@@ -13,7 +13,7 @@ interface ILogin {
 
 const Login = () => {
     const { setIsLogin } = useContext(LoginContext);
-    const { setIsOpen } = useContext(OpenModalContext);
+    const { setIsOpen } = useContext(ModalContext);
 
     const { control, handleSubmit } = useForm<ILogin>({
         defaultValues: {

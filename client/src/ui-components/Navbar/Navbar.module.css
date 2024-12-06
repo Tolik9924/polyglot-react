@@ -27,6 +27,10 @@
   padding-right: 1.75rem;
 }
 
+.rightSide {
+  display: flex;
+}
+
 .logoContainer {
   display: flex;
   align-items: center;
