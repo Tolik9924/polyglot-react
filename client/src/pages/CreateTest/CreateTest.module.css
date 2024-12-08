@@ -84,3 +84,80 @@
   display: flex;
   justify-content: space-between;
 }
+
+@media (min-width: 320px) {
+  .form {
+    width: 95%;
+  }
+
+  .formItem {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nameOfItem {
+    display: flex;
+    align-self: start;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (min-width: 481px) {
+  .form {
+    width: 95%;
+  }
+
+  .formItem {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .nameOfItem {
+    display: flex;
+    align-self: center;
+    width: 60%;
+  } 
+}
+
+@media (min-width: 769px) {
+  .form {
+    width: 80%;
+  }
+}
+
+@media (min-width: 1025px) {
+  .form {
+    width: 75%;
+  }
+}
+
+@media (min-width: 1201px) {
+  .form {
+    width: 60%;
+  }
+}
+
+@media (min-width: 1501px) {
+  .form {
+    width: 55%;
+  }
+}
+
+@media (min-width: 1801px) {
+  .form {
+    width: 50%
+  }
+}
+
+@media (min-width: 2101px) {
+  .form {
+    width: 45%;
+  }
+}
+
+@media (min-width: 2301px) {
+  .form {
+    width: 30%;
+  }
+}

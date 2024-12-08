@@ -7,15 +7,11 @@
 }
 
 .prevQuestion {
-  position: absolute;
-  top: 50%;
-  left: 0;
+  display: none;
 }
 
 .nextQuestion {
-  position: absolute;
-  top: 50%;
-  right: 0;
+  display: none;
 }
 
 .topic {
@@ -87,4 +83,57 @@
 
 .pagination :nth-child(2n) {
   margin: 40px 10px;
+}
+
+@media (min-width: 320px) {
+  .words {
+    margin-top: 100px;
+    width: 100%;
+  }
+
+  .word {
+    margin: 10px;
+  }
+
+  .answer {
+    display: flex;
+    align-self: center;
+    font-size: 35px;
+  }
+}
+
+@media (min-width: 769px) {
+  .words {
+    width: 80%;
+    margin-top: 150px;
+  }
+
+  .word {
+    margin: 20px;
+  }
+
+  .prevQuestion {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+  }
+  
+  .nextQuestion {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+  }
+}
+
+@media (min-width: 1025px) {
+  .words {
+    margin-top: 200px;
+    width: 50%;
+  }
+
+  .word {
+    margin: 30px 0px;
+  }
 }
