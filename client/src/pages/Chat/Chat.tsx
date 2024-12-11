@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Chat.module.css';
 import Input from '../../ui-components/Input/Input.tsx';
 import {
@@ -7,6 +7,16 @@ import {
   SendOutlined
 } from '@ant-design/icons';
 import Button from '../../ui-components/Button/Button.tsx';
+import { classes } from '../../common_utils/classes/classes.tsx';
+
+interface User {
+  id: number,
+  image: string,
+  name: string,
+  lastMessage: string,
+  time: string,
+  isActive: boolean
+};
 
 const users = [
   {
@@ -61,6 +71,27 @@ const users = [
 ];
 
 const Chat = () => {
+  const [listsOfUser, setListsOfUser] = useState<User[]>([...users.map((user) => (
+    { ...user, isActive: false }
+  ))]);
+
+  const [activeUser, setActiveUser] = useState('');
+
+  const handleActiveUser = (id: number) => {
+    const newUser = listsOfUser.map((user: User) => {
+      if (user.id === id) {
+        setActiveUser(user.name);
+        return { ...user, isActive: true };
+      } else {
+        return { ...user, isActive: false };
+      }
+    });
+    setListsOfUser([...newUser]);
+  };
+
+  console.log("LISTS OF USER: ", listsOfUser);
+  console.log("ACTIVE USER: ", activeUser);
+
   return (
     <div className={styles.chatContainer}>
       <div className={styles.usersContainer}>
@@ -68,14 +99,21 @@ const Chat = () => {
           <Input placeholder='Search...' prefix={<SearchOutlined />} />
         </div>
         <div className={styles.users}>
-          {users.map((user) => (
-            <div key={user.id} className={styles.userContainer}>
+          {listsOfUser.map((user) => (
+            <div key={user.id}
+              onClick={() => handleActiveUser(user.id)}
+              className={classes(styles.userContainer, {
+                [styles.userActive]: user.isActive
+              })}>
               <div className={styles.imageNameAndMessage}>
-                <img
-                  src={user.image}
-                  alt="user"
-                  className={styles.userPhoto}
-                />
+                <div>
+                  <img
+                    src={user.image}
+                    alt="user"
+                    className={styles.userPhoto}
+                  />
+                  <div className={styles.online}></div>
+                </div>
                 <div className={styles.nameAndMessage}>
                   <p className={styles.name}>{user.name}</p>
                   <p className={styles.lastMessage}>{user.lastMessage}</p>
@@ -89,13 +127,70 @@ const Chat = () => {
       <div className={styles.messagesContainer}>
         <div className={styles.headerChat}>
           <UserOutlined />
-          <p className={styles.userInChat}>Megan Leib</p>
+          <p className={styles.userInChat}>{activeUser}</p>
         </div>
         <div className={styles.messagesContainer}>
-          <div>Messages</div>
+          <div className={classes(styles.allMessages, styles.showScrollbar)}>
+            <div className={styles.friendMessages}>
+              <div className={styles.message}>
+                <div>
+                  <img
+                    src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
+                    alt='user'
+                    className={styles.userPhoto}
+                  />
+                  <div className={styles.online}></div>
+                </div>
+                <div className={styles.textContainer}>
+                  <p className={styles.text}>Hi, how are you?</p>
+                </div>
+              </div>
+              <div className={styles.onlyText}>
+                <p className={styles.text}>What are you doing tonight ? Want to go take a drink ?</p>
+              </div>
+            </div>
+            <div className={styles.onlyText}>
+              <p className={styles.lastMessageTime}> 14h58</p>
+            </div>
+            <div className={styles.userMessages}>
+              <p className={styles.text}> Hey Megan ! It's been a while 😃</p>
+            </div>
+            <div className={styles.userMessages}>
+              <p className={styles.text}> When can we meet ?</p>
+              <p className={classes(styles.lastMessageTime, styles.showUserLastMessageTime)}> 15h04</p>
+            </div>
+            <div className={styles.friendMessages}>
+              <div className={styles.message}>
+                <div>
+                  <img
+                    src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
+                    alt='user'
+                    className={styles.userPhoto}
+                  />
+                  <div className={styles.online}></div>
+                </div>
+                <div className={styles.textContainer}>
+                  <p className={styles.text}>Hi, how are you?</p>
+                </div>
+              </div>
+              <div className={styles.onlyText}>
+                <p className={styles.text}>What are you doing tonight ? Want to go take a drink ?</p>
+              </div>
+            </div>
+            <div className={styles.onlyText}>
+              <p className={styles.lastMessageTime}> 14h58</p>
+            </div>
+            <div className={styles.userMessages}>
+              <p className={styles.text}> Hey Megan ! It's been a while 😃</p>
+            </div>
+            <div className={styles.userMessages}>
+              <p className={styles.text}> When can we meet ?</p>
+              <p className={classes(styles.lastMessageTime, styles.showUserLastMessageTime)}> 15h04</p>
+            </div>
+          </div>
           <div className={styles.footerChat}>
             <Input className={styles.footerInput} placeholder='Type your message here' />
-            <Button className={styles.buttonSend}  type='primary'>
+            <Button className={styles.buttonSend} type='primary'>
               <SendOutlined />
             </Button>
           </div>
