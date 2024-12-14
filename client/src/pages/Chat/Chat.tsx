@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import styles from "./Chat.module.css";
-import Input from "../../ui-components/Input/Input.tsx";
 import { SearchOutlined, SendOutlined, MenuOutlined } from "@ant-design/icons";
+import Input from "../../ui-components/Input/Input.tsx";
 import Button from "../../ui-components/Button/Button.tsx";
+import MobileMenu from "../../components/MobileMenu/MobileMenu.tsx";
 import { classes } from "../../common_utils/classes/classes.tsx";
 import useScreenSize from "../../hooks/useScreenSize.ts";
-import MobileMenu from "../../components/MobileMenu/MobileMenu.tsx";
+import styles from "./Chat.module.css";
 
 interface User {
   id: number;
