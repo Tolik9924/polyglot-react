@@ -1,15 +1,44 @@
-import React from 'react';
+import React from "react";
+import Button from "../../ui-components/Button/Button.tsx";
+import Input from "../../ui-components/Input/Input.tsx";
+import { SearchOutlined, CloseOutlined } from "@ant-design/icons";
+import styles from "./MobileMenu.module.css";
 
-import styles from './MobileMenu.module.css';
-import Button from '../../ui-components/Button/Button.tsx';
+const MobileMenu = ({ setIsOpen, isOpen, list, handleActiveUser }) => {
+  console.log("isOpen: ", isOpen);
 
-const MobileMenu = ({ setIsOpen, list }) => {
   return (
     <nav className={styles.menu}>
-      <Button onClick={() => setIsOpen(false)}>Close</Button>
+      <div className={styles.buttonContainer}>
+        <Button onClick={() => setIsOpen(false)} type="link">
+          <CloseOutlined />
+        </Button>
+      </div>
+      <div className={styles.inputContainer}>
+        <Input placeholder="Search..." prefix={<SearchOutlined />} />
+      </div>
       <ul className={styles.items}>
         {list.map((item) => (
-          <li key={item.id} className={styles.item}>{item.name}</li>
+          <li
+            key={item.id}
+            className={styles.item}
+            onClick={() => {
+              handleActiveUser(item.id);
+              setIsOpen(false);
+            }}
+          >
+            <div className={styles.messageContainer}>
+              <div>
+                <img src={item.image} alt="user" className={styles.userPhoto} />
+                <div className={styles.online}></div>
+              </div>
+              <div className={styles.nameAndMessage}>
+                <p className={styles.name}>{item.name}</p>
+                <p className={styles.lastMessage}>{item.lastMessage}</p>
+              </div>
+            </div>
+            <p className={styles.time}>{item.time}</p>
+          </li>
         ))}
       </ul>
     </nav>

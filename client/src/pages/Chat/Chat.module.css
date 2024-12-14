@@ -5,17 +5,15 @@
   width: 50%;
   margin: 300px auto;
   z-index: 10;
-  height: auto;
   background-color: #fff;
+  height: 96.5vh;
 }
 
 .usersContainer {
   width: 50%;
   border-right: 1px solid #FAFAFA;
-  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.20);
   background-color: #FAFAFA;
   display: inline-block;
-  height: 40vh;
 }
 
 .users {
@@ -23,7 +21,8 @@
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: #E5E5E5 #fff;
-  height: 45.8vh;
+  /* box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.20); */
+  height: 79.4vh;
 }
 
 .userContainer {
@@ -35,6 +34,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  cursor: pointer;
 }
 
 .userActive {
@@ -53,11 +53,34 @@
   margin-left: 15px;
 }
 
+.imageContainer {
+  display: flex;
+  justify-content: center;
+}
+
 .userPhoto {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.actualUserPhoto {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.onlineActualUser {
+  position: relative;
+  top: 36px;
+  left: -16px;
+  width: 8px;
+  height: 8px;
+  background-color: #8BC34A;
+  border-radius: 13px;
+  border: 3px solid #FAFAFA;
 }
 
 .online {
@@ -99,6 +122,10 @@
   font-family: 'Montserrat', sans-serif;
   font-size: 9pt;
   color: #515151;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;  
+  width: 90%;
 }
 
 .name {
@@ -113,6 +140,14 @@
   height: 90px;
   border: 1px solid #EEEEEE;
   background: #FAFAFA;
+}
+
+.showUsers {
+  margin-left: auto;
+}
+
+.burgerIcon {
+  font-size: 25px;
 }
 
 .messagesContainer {
@@ -166,8 +201,12 @@
   align-items: center;
 }
 
+.actualUser {
+  display: flex;
+  align-items: center;
+}
+
 .userInChat {
-  margin: 0 0 0 20px;
   text-transform: uppercase;
   font-family: 'Montserrat', sans-serif;
   font-size: 13pt;
@@ -184,8 +223,10 @@
 
 .footerChat {
   width: 33.3%;
-  position: absolute;
-  bottom: 20%;
+  position: fixed; 
+  bottom: 0; 
+  right: 0; 
+  bottom: 0;
   height: 80px;
   display: flex;
   align-items: center;
@@ -207,9 +248,14 @@
 }
 
 @media (min-width: 320px) {
+  .chatContainer {
+    height: 45vh;
+  }
+
   .headerChat {
     height: 0px;
-    padding: 25px 25px;
+    padding: 35px 25px;
+    width: 100%;
   }
 
   .chatContainer {
@@ -224,8 +270,8 @@
 
   .allMessages {
     padding: 10px 10px;
-    min-height: 80vh;
-    max-height: 100vh;
+    min-height: 70vh;
+    max-height: 90vh;
   }
 
   .showScrollbar {
@@ -308,12 +354,16 @@
 }
 
 @media (min-width: 1201px) {
+  .usersContainer {
+    min-height: 92.5vh;
+  }
+
   .users {
-    height: 80vh;
+    height: 85%;
   }
 
   .allMessages {
-    height: 72vh;
+    height: 59.4vh;
   }
 
   .headerChat {
@@ -326,20 +376,32 @@
   }
 }
 
+@media (min-width: 1300px) {
+  .usersContainer {
+    height: 93.7vh;
+  }
+}
+
+@media (min-width: 1500px) {
+  .usersContainer {
+    height: 94.7vh;
+  }
+}
+
 @media (min-width: 1800px) {
-  .users {
-    height: 85vh;
+  .usersContainer {
+    height: 95.6vh;
   }
 }
 
-@media (min-width: 2000px) {
-  .users {
-    height: 88vh;
+@media (min-width: 2099px) {
+  .usersContainer {
+    height: 96.2vh;
   }
 }
 
-@media (min-width: 2500px) {
-  .users {
-    height: 88vh;
+@media (min-width: 2300px) {
+  .usersContainer {
+    height: 96.5vh;
   }
 }
